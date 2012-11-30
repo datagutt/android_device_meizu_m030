@@ -1,26 +1,84 @@
-USE_CAMERA_STUB := true
+#
+# Copyright (C) 2012 The CyanogenMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-# inherit from the proprietary version
--include vendor/meizu/mx/BoardConfigVendor.mk
+# This variable is set first, so it can be overridden
+# by BoardConfigVendor.mk
+USE_CAMERA_STUB := true
+BOARD_USES_GENERIC_AUDIO := false
+
+TARGET_BOOTANIMATION_PRELOAD := true
+
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a9
+ARCH_ARM_HAVE_NEON := true
+ARCH_ARM_HAVE_TLS_REGISTER := true
+EXYNOS4210_ENHANCEMENTS := true
+
+ifdef EXYNOS4210_ENHANCEMENTS
+COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
+COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE
+endif
+
+TARGET_BOARD_PLATFORM := exynos4
+TARGET_SOC := exynos4210
+TARGET_BOOTLOADER_BOARD_NAME := smdk4210
+TARGET_BOARD_INFO_FILE := device/meizu/mx/board-info.txt
 
 TARGET_NO_BOOTLOADER := true
-TARGET_BOARD_PLATFORM := unknown
-TARGET_CPU_ABI := armeabi
-TARGET_BOOTLOADER_BOARD_NAME := mx
+TARGET_NO_RADIOIMAGE := true
 
-BOARD_KERNEL_CMDLINE := no_console_suspend=1 console=null
-BOARD_KERNEL_BASE := 0x10000000
+TARGET_PROVIDES_INIT := true
+TARGET_PROVIDES_INIT_TARGET_RC := true
+TARGET_RECOVERY_INITRC := device/meizu/mx/recovery.rc
+
+TARGET_SPECIFIC_HEADER_PATH := device/meizu/mx/overlay/include
+
+
+BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200"
+BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 
-# fix this up by examining /proc/mtd on a running device
-BOARD_BOOTIMAGE_PARTITION_SIZE := 0x105c0000
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x105c0000
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x105c0000
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x105c0000
-BOARD_FLASH_BLOCK_SIZE := 131072
+# Filesystem
+TARGET_USERIMAGES_USE_EXT4 := true
+#BOARD_BOOTIMAGE_PARTITION_SIZE := 0x105c0000
+##BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x105c0000
+#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x105c0000
+#BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x105c0000
+#BOARD_FLASH_BLOCK_SIZE := 131072
+
+# Graphics
+BOARD_EGL_CFG := device/meizu/mx/configs/egl.cfg
+USE_OPENGL_RENDERER := true
+
+# Enable WEBGL in WebKit
+ENABLE_WEBGL := true
+
+# HWComposer
+BOARD_USES_HWCOMPOSER := true
+BOARD_USE_SECTVOUT := true
+BOARD_USES_FIMGAPI := true
 
 TARGET_PREBUILT_KERNEL := device/meizu/mx/kernel
 
 #BOARD_HAS_NO_SELECT_BUTTON := true
 # Use this flag if the board has a ext4 partition larger than 2gb
 #BOARD_HAS_LARGE_FILESYSTEM := true
+
+# assert
+TARGET_OTA_ASSERT_DEVICE := mx, meizu_mx
