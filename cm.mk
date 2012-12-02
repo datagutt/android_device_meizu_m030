@@ -2,19 +2,19 @@
 $(call inherit-product, vendor/cm/config/gsm.mk)
 
 # Release name
-PRODUCT_RELEASE_NAME := mx
+PRODUCT_RELEASE_NAME := m030
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/meizu/mx/device_mx.mk)
+$(call inherit-product, device/meizu/mx/full_m030.mk)
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := mx
-PRODUCT_NAME := cm_meizu_mx
+PRODUCT_DEVICE := m030
+PRODUCT_NAME := cm_m030
 PRODUCT_BRAND := Meizu
-PRODUCT_MODEL := MX
+PRODUCT_MODEL := m030
 PRODUCT_MANUFACTURER := Meizu
 
 # Set build fingerprint / ID / Product Name ect.

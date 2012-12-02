@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE=mx
-COMMON=galaxys2-common
+DEVICE=m030
+COMMON=m030-common
 MANUFACTURER=meizu
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE

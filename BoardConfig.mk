@@ -38,16 +38,16 @@ endif
 TARGET_BOARD_PLATFORM := exynos4
 TARGET_SOC := exynos4210
 TARGET_BOOTLOADER_BOARD_NAME := smdk4210
-TARGET_BOARD_INFO_FILE := device/meizu/mx/board-info.txt
+TARGET_BOARD_INFO_FILE := device/meizu/m030/board-info.txt
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
-TARGET_RECOVERY_INITRC := device/meizu/mx/recovery.rc
+TARGET_RECOVERY_INITRC := device/meizu/m030/recovery.rc
 
-TARGET_SPECIFIC_HEADER_PATH := device/meizu/mx/overlay/include
+TARGET_SPECIFIC_HEADER_PATH := device/meizu/m030/overlay/include
 
 
 BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200"
@@ -63,7 +63,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 #BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Graphics
-BOARD_EGL_CFG := device/meizu/mx/configs/egl.cfg
+BOARD_EGL_CFG := device/meizu/m030/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # Enable WEBGL in WebKit
@@ -74,7 +74,7 @@ BOARD_USES_HWCOMPOSER := true
 BOARD_USE_SECTVOUT := true
 BOARD_USES_FIMGAPI := true
 
-TARGET_PREBUILT_KERNEL := device/meizu/mx/kernel
+TARGET_PREBUILT_KERNEL := device/meizu/m030/kernel
 
 #BOARD_HAS_NO_SELECT_BUTTON := true
 # Use this flag if the board has a ext4 partition larger than 2gb

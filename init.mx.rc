@@ -1,0 +1,164 @@
+import init.mx.usb.rc
+
+on boot
+    setprop ro.build.product mx
+    setprop ro.product.device mx
+    setprop ro.radio.noril yes
+
+on fs
+    mount ext4 /dev/block/mmcblk0p2 /system
+    mount ext4 /dev/block/mmcblk0p2 /system ro wait remount
+    mount ext4 /dev/block/mmcblk0p3 /data wait nosuid nodev noatime nomblk_io_submit noauto_da_alloc
+    #create /data/cache for mount cache partition
+    mkdir /data/cache 0770 system cache
+    mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev noatime
+
+    export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt/sdcard 0000 system system
+    symlink /mnt/sdcard /sdcard
+
+# for calibration data persistence
+    mkdir /data/calibration
+    mount ext4 /dev/block/mmcblk0p5 /data/calibration wait nosuid nodev noatime
+    chmod 0777 /data/calibration
+
+#add by wangwenxi, for rm/asf cracker
+    mkdir /data/misc/OpenSesame 0777 system system
+        
+#add by liyongda, for theme
+	mkdir /data/mtheme 0771 theme theme
+	chown theme theme /data/mtheme
+	chmod 0771 /data/mtheme
+
+#add by moses, for logs
+     mkdir /data/logs 0777 system system
+
+#for wifi
+    chmod 777 /sys/devices/platform/bcm4329_wlan/wifi_card_state
+
+    chown system system /sys/class/leds/bu26507-led0/brightness
+    chown system system /sys/class/leds/bu26507-led1/brightness
+    chown system system /sys/class/leds/bu26507-led2/brightness
+    chown system system /sys/class/leds/bu26507-led3/brightness
+    chown system system /sys/class/leds/bu26507-led4/brightness
+    chown system system /sys/class/leds/bu26507-led5/brightness
+    chown system system /sys/class/leds/bu26507-led6/brightness
+    chown system system /sys/class/leds/bu26507-led7/brightness
+    chown system system /sys/class/leds/bu26507-led8/brightness
+    chown system system /sys/class/leds/bu26507-led9/brightness
+    chown system system /sys/class/leds/bu26507-pwm/brightness
+    chown system system /sys/class/leds/bu26507-slope/brightness
+ 
+    chown system system /sys/class/rtc/rtc1/wakealarm
+
+    mkdir /data/system/scsi 0775 
+    chmod 0775 /data/system/scsi
+
+# Permissions for backlight
+    chown system system /sys/class/backlight/pwm-backlight/brightness
+    chown system system  /sys/devices/system/performance/cpufreq_pfm_level
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+# fake some battery state
+    setprop status.battery.state Slow
+    setprop status.battery.level 5
+    setprop status.battery.level_raw  50
+    setprop status.battery.level_scale 9
+
+# valify apk
+    chown system system /system/etc/ibap
+    chmod 0770 /system/etc/ibap
+
+#gps
+    chown system system /dev/ttySAC2
+    chmod 0660 /dev/ttySAC2
+    chown system system /sys/devices/platform/ublox-gps/enable
+    chmod 0660 /sys/devices/platform/ublox-gps/enable
+    
+#isp   
+    chown camera camera /sys/devices/platform/s3c2440-i2c.7/i2c-7/7-001f/download_firmware
+    chmod 0664 /sys/devices/platform/s3c2440-i2c.7/i2c-7/7-001f/download_firmware
+
+#led
+    chown camera camera /sys/class/leds/torch_led/brightness
+    chmod 0660 /sys/class/leds/torch_led/brightness
+
+#microphone test
+    chown system root /sys/bus/i2c/drivers/a1028_soc/0-003e/cmd
+    chown system root /sys/class/sound/card0/device/reg_program
+
+#bootinfo
+    chown root system /proc/inform/bootinfo
+    chmod 0660 /proc/inform/bootinfo
+
+#emmc name
+	chown root system /sys/class/mmc_host/mmc0/mmc0:0001/name
+    chmod 0440 /sys/class/mmc_host/mmc0/mmc0:0001/name
+
+#add by cgf
+	chown root system /dev/modemctl
+	chown root radio /dev/modemctl
+	chmod 0660 /dev/modemctl
+	chown system /dev/modemctl
+
+#added by wu zhangjint
+#run customized scripts
+    chown root shell /system/etc/init.scripts.sh
+    chmod 0700 /system/etc/init.scripts.sh
+    start scripts
+
+# create filesystem if necessary
+service setup_fs /system/bin/setup_fs \
+            /dev/block/mmcblk0p3 \
+            /dev/block/mmcblk0p4 \
+            /dev/block/mmcblk0p5
+    class core
+    user root
+    group root
+    oneshot
+
+service hciattach  /system/bin/hciattach -n -s 115200 /dev/ttySAC0 bcmbt 3000000 flow &
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service bt_test_mode /system/bin/hciattach -t -n -s 115200 /dev/ttySAC0 bcmbt 3000000 flow &
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+#added by chenfang
+service vncserver /system/bin/vncserver
+    disabled
+
+on property:persist.service.vnc.enable=1
+    start vncserver
+
+on property:persist.service.vnc.enable=0
+    stop vncserver
+
+#added by wu zhangjin
+service scripts /system/bin/sh /system/etc/init.scripts.sh
+    user root
+    group shell
+    disabled
+    oneshot
+
+#++++++++++++added by rankun,for mlogger that catch modem trace++++++++++++++++
+service mlogger /system/bin/mlogger -sdcard
+	disabled
+	socket mlogger_java2native stream 0666
+	socket mlogger_native2java stream 0666
+	oneshot
+
+on property:meizu.modem.mzma=start
+	start mlogger
+
+on property:meizu.modem.mzma=stop
+	stop mlogger
+
+
+
+#------------added by rankun---------------------------------------------------
