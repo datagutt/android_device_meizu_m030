@@ -24,7 +24,7 @@ PRODUCT_LOCALES += hdpi
 PRODUCT_COPY_FILES := \
 	device/meizu/m030/lpm.rc:root/lpm.rc \
 	device/meizu/m030/init.mx.usb.rc:root/init.mx.usb.rc \
-	device/meizu/m030/init.mx.rc:root/init.smdkmx.rc \
+	device/meizu/m030/init.mx.rc:root/init.mx.rc \
 	device/meizu/m030/ueventd.mx.rc:root/ueventd.mx.rc
 
 # Audio
