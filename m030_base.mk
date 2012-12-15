@@ -63,7 +63,7 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4239
 PRODUCT_PACKAGES := \
     audio.a2dp.default \
     Camera \
-    camera.exynos4 \
+    camera.mx \
     com.android.future.usb.accessory \
     Torch \
     TvOut \
