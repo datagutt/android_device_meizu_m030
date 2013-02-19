@@ -18,6 +18,6 @@ PRODUCT_MODEL := m030
 PRODUCT_MANUFACTURER := Meizu
 
 # Set build fingerprint / ID / Product Name ect.
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=M03x TARGET_DEVICE=mx BUILD_FINGERPRINT="Meizu/meizu_mx/mx:4.0.3/IML74K/eng.mobileapp.20120725.003030:user/test-keys" PRIVATE_BUILD_DESC="meizu_mx-user 4.0.3 test-keys 7929_zh-HK"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=M03x TARGET_DEVICE=mx BUILD_FINGERPRINT="Meizu/meizu_mx/mx:4.1.1/JRO03H/M03X.Flyme_2.1.1359094815:user/release-keys" PRIVATE_BUILD_DESC="meizu_mx-user-7897_intl 4.1.1 JRO03H M03X.Flyme_2.1.1359094815 release-keys"
 
 
