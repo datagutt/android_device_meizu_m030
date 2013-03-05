@@ -15,7 +15,8 @@
 #
 
 # Include common makefile
-$(call inherit-product, device/meizu/m030-common/common.mk)
+$(call inherit-product, device/samsung/smdk4412-common/common.mk)
+
 
 LOCAL_PATH := device/meizu/m030
 
