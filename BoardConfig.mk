@@ -19,6 +19,7 @@
 # by BoardConfigVendor.mk
 USE_CAMERA_STUB := true
 BOARD_USES_GENERIC_AUDIO := false
+BOARD_USE_YAMAHAPLAYER := false
 
 TARGET_BOOTANIMATION_PRELOAD := true
 
