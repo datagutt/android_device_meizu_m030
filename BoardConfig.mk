@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
--include device/samsung/smdk4412-common/BoardCommonConfig.mk
+-include device/samsung/galaxys2-common/BoardCommonConfig.mk
 
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
