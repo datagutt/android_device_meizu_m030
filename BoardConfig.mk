@@ -93,4 +93,4 @@ TARGET_PREBUILT_KERNEL := device/meizu/m030/kernel
 #BOARD_HAS_LARGE_FILESYSTEM := true
 
 # assert
-TARGET_OTA_ASSERT_DEVICE := mx, meizu_mx
+TARGET_OTA_ASSERT_DEVICE := mx,meizu_mx
